@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getPosts } from '../Redux/posts/actions';
+import { getPosts, toggleFavoriteStatus } from '../Redux/posts/actions';
 import Post from '../Components/Post';
 import Loader from '../Components/Loader';
 
@@ -15,18 +15,23 @@ const HomePage = () => {
         dispatch(getPosts(page))
     }, [page])
 
-    const handleToggle = id => {}
-
+    const handleToggle = (id, status) => {
+        let payload = {
+            id,
+            status
+        }
+        dispatch(toggleFavoriteStatus(payload))
+    }
     return (
         <div>
-            {loading ? (
+            {/* {loading ? (
                 <Loader/>
-            ) : (
+            ) : ( */}
                 <div>
                     {posts?.map(item => <Post item={item} key={item.id} handleToggle={handleToggle}/>)}
                 </div>
-            )
-            }
+            {/* )
+            } */}
         </div>
     )
 }

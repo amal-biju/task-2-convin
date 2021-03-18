@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getFavPosts } from '../Redux/posts/actions';
+import { getFavPosts, toggleFavoriteStatus } from '../Redux/posts/actions';
 import Post from '../Components/Post';
 import Loader from '../Components/Loader';
 
@@ -13,18 +13,24 @@ const Favorites = () => {
         dispatch(getFavPosts())
     }, [])
 
-    const handleToggle = id => {}
+    const handleToggle = (id, status) => {
+        let payload = {
+            id,
+            status
+        }
+        dispatch(toggleFavoriteStatus(payload))
+    }
 
     return (
         <div>
-            {loading ? (
+            {/* {loading ? (
                 <Loader/>
-            ) : (
+            ) : ( */}
                 <div>
                     {favs?.map(item => <Post item={item} key={item.id} handleToggle={handleToggle}/>)}
                 </div>
-            )
-            }
+            {/* )
+            } */}
         </div>
     )
 }

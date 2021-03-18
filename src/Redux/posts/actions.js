@@ -6,6 +6,7 @@ import {
    GET_POSTS_FAILURE,
    GET_POSTS_REQUEST,
    GET_POSTS_SUCCESS,
+   TOGGLE_ISFAVOURITE,
 } from "./actionTypes";
 
 const getPostsRequest = (payload) => ({
@@ -60,4 +61,28 @@ export const getFavPosts = () => (dispatch) => {
       .catch((err) => {
          dispatch(getFavPostsFailure(err));
       });
+};
+
+const toggleIsFavourite = (id) => ({
+   type: TOGGLE_ISFAVOURITE,
+   payload: id,
+});
+
+export const toggleFavoriteStatus = ({ id, status }) => (dispatch) => {
+   var data = { isFavourite: !status };
+   data = JSON.stringify(data);
+
+   let config = {
+      method: "patch",
+      url: `https://serverfake.herokuapp.com/posts/${id}`,
+      headers: {
+         "Content-Type": "application/json",
+      },
+      data: data,
+   };
+
+   axios(config).then(() => {
+      dispatch(getPosts());
+      dispatch(getFavPosts());
+   });
 };

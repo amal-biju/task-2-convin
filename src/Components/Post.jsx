@@ -42,7 +42,7 @@ export default function Post({ item, handleToggle }) {
             </Typography>
          </CardContent>
          <CardActions>
-             <Paper onClick={() => handleToggle(item.id)} className={styles.toggle}>
+             <Paper onClick={() => handleToggle(item.id, item.isFavourite)} className={styles.toggle}>
                 <Tooltip title="Add to Favorites">
                     {item.isFavourite ? <BookmarkIcon color="secondary"/> : <BookmarkBorderIcon/>}
                 </Tooltip>

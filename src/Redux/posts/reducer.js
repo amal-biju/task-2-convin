@@ -5,6 +5,7 @@ import {
    GET_POSTS_FAILURE,
    GET_POSTS_REQUEST,
    GET_POSTS_SUCCESS,
+   TOGGLE_ISFAVOURITE,
 } from "./actionTypes";
 
 const initialState = {
