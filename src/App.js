@@ -1,6 +1,6 @@
 import "./App.css";
 import Routes from "./Routes/Routes";
-import Layout from "./Components/Layout";
+import Layout from "./Components/Layout.js";
 
 function App() {
    return (

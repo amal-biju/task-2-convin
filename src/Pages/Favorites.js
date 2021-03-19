@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFavPosts, toggleFavoriteStatus } from "../Redux/posts/actions";
-import Post from "../Components/Post";
+import Post from "../Components/Post.js";
 
 const Favorites = () => {
    const dispatch = useDispatch();
