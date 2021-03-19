@@ -5,7 +5,6 @@ import {
    GET_POSTS_FAILURE,
    GET_POSTS_REQUEST,
    GET_POSTS_SUCCESS,
-   TOGGLE_ISFAVOURITE,
 } from "./actionTypes";
 
 const initialState = {
@@ -25,10 +24,22 @@ export const postsReducer = (state = initialState, { type, payload }) => {
          };
 
       case GET_POSTS_SUCCESS:
+         const obj = {};
+         const unique = [...payload, ...state.posts]
+            .filter((item) => {
+               if (item.id in obj) {
+                  return false;
+               } else {
+                  obj[item.id] = item;
+                  return true;
+               }
+            })
+            .sort((a, b) => a.id - b.id);
+         console.log(unique);
          return {
             ...state,
             isLoading: false,
-            posts: payload,
+            posts: [...unique],
          };
 
       case GET_POSTS_FAILURE:
@@ -57,6 +68,7 @@ export const postsReducer = (state = initialState, { type, payload }) => {
             isLoading: false,
             error: true,
          };
+
       default:
          return state;
    }
