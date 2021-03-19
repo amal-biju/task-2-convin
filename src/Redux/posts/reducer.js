@@ -36,7 +36,6 @@ export const postsReducer = (state = initialState, { type, payload }) => {
                }
             })
             .sort((a, b) => a.id - b.id);
-         console.log(unique);
          return {
             ...state,
             isLoading: false,

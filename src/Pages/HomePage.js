@@ -17,11 +17,7 @@ const HomePage = () => {
    }
 
    const handleToggle = (id, status) => {
-      let payload = {
-         id,
-         status,
-      };
-      dispatch(toggleFavoriteStatus(payload));
+      dispatch(toggleFavoriteStatus({ id, status }));
       setTimeout(() => {
          getData(page);
       }, 2000);
