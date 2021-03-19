@@ -5,6 +5,7 @@ import {
    GET_POSTS_FAILURE,
    GET_POSTS_REQUEST,
    GET_POSTS_SUCCESS,
+   TOGGLE_STATUS,
 } from "./actionTypes";
 
 const initialState = {
@@ -67,6 +68,13 @@ export const postsReducer = (state = initialState, { type, payload }) => {
             ...state,
             isLoading: false,
             error: true,
+         };
+
+      case TOGGLE_STATUS:
+         return {
+            ...state,
+            posts: state.posts.map((item) => (item.id === payload ? { ...item, isFavourite: !item.isFavourite } : item)),
+            favs: state.favs.map((item) => (item.id === payload ? { ...item, isFavourite: !item.isFavourite } : item)),
          };
 
       default:

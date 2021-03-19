@@ -6,6 +6,7 @@ import {
    GET_POSTS_FAILURE,
    GET_POSTS_REQUEST,
    GET_POSTS_SUCCESS,
+   TOGGLE_STATUS,
 } from "./actionTypes";
 
 const getPostsRequest = (payload) => ({
@@ -62,7 +63,13 @@ export const getFavPosts = () => (dispatch) => {
       });
 };
 
+const toggleStatus = (payload) => ({
+   type: TOGGLE_STATUS,
+   payload,
+});
+
 export const toggleFavoriteStatus = ({ id, status }) => (dispatch) => {
+   dispatch(toggleStatus(id));
    var data = { isFavourite: !status };
    data = JSON.stringify(data);
 
