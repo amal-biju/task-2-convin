@@ -25,6 +25,15 @@ const HomePage = () => {
       dispatch(toggleFavoriteStatus({ id, status }));
    };
 
+   if (page >= 6 && page < 10) {
+      window.addEventListener("scroll", () => {
+         const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+         if (scrollTop + clientHeight === scrollHeight) {
+            setPage(page + 1);
+         }
+      });
+   }
+
    return (
       <div>
          <div>
@@ -33,7 +42,7 @@ const HomePage = () => {
             ))}
          </div>
          {loading && <Loader />}
-         <InfiniteLoader onVisited={() => setPage((page) => page + 1)} />
+         <InfiniteLoader onVisited={() => setPage(page + 1)} />
       </div>
    );
 };
