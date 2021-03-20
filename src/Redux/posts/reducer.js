@@ -41,7 +41,6 @@ export const postsReducer = (state = initialState, { type, payload }) => {
             isLoading: false,
             posts: [...unique],
          };
-
       case GET_POSTS_FAILURE:
          return {
             ...state,

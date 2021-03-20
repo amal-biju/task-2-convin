@@ -2,14 +2,19 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts, toggleFavoriteStatus } from "../Redux/posts/actions";
 import Post from "../Components/Post.js";
+import Loader from "../Components/Loader";
+import InfiniteLoader from "react-infinite-loader";
 
 const HomePage = () => {
    const dispatch = useDispatch();
    const posts = useSelector((state) => state.post.posts);
+   const loading = useSelector((state) => state.post.isLoading);
    const [page, setPage] = useState(1);
 
    useEffect(() => {
-      getData(page);
+      if (page <= 10) {
+         getData(page);
+      }
    }, [page]);
 
    function getData(page) {
@@ -18,25 +23,8 @@ const HomePage = () => {
 
    const handleToggle = (id, status) => {
       dispatch(toggleFavoriteStatus({ id, status }));
-      setTimeout(() => {
-         getData(page);
-      }, 2000);
    };
 
-   window.addEventListener(
-      "scroll",
-      () => {
-         const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-         if (scrollTop + clientHeight === scrollHeight) {
-            if (page < 10) {
-               setPage(page + 1);
-            }
-         }
-      },
-      {
-         passive: true,
-      }
-   );
    return (
       <div>
          <div>
@@ -44,6 +32,8 @@ const HomePage = () => {
                <Post item={item} key={item.id} handleToggle={handleToggle} />
             ))}
          </div>
+         {loading && <Loader />}
+         <InfiniteLoader onVisited={() => setPage((page) => page + 1)} />
       </div>
    );
 };
